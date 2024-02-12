@@ -4,8 +4,6 @@ import { useParams } from "next/navigation";
 import { FaCalendar } from "react-icons/fa";
 import StarIcon from "@mui/icons-material/Star";
 import { useQuery, useMutation ,useIsFetching } from "@tanstack/react-query";
-import axios from "axios";
-import { rateMovies } from "@/mutations/mutation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { APIKEY } from "@/app/constants";
@@ -43,6 +41,7 @@ function MovieComponent() {
         }).then((response) => response.json())
     })
 
+    console.log(data)
     const handleClick = () => {
       mutation.mutate();
       toast("Rating Successful!")
@@ -120,19 +119,19 @@ function MovieComponent() {
                 <h2 className=" font-bold text-lg">Budget</h2>
                 <h3 className=" font-normal text-slate-300">{data?.budget === 0 ? 'NAN' : data?.budget}</h3>
               </div>
-              <div className=" ml-24">
+              <div className=" relative left-[7.5rem]">
                 <h2 className=" font-bold text-lg">Revenue</h2>
                 <h3 className=" font-normal text-slate-300">{data?.revenue === 0 ? 'NAN' : data?.revenue}</h3>
               </div>
             </span>
-            <span className=" flex mt-4 mx-4">
+            <span className=" flex gap-[6.5rem] mt-4 mx-4">
+              <div className="">
+                <h2 className=" font-bold text-lg">Popularity</h2>
+                <h3 className=" font-normal text-slate-300">{data?.popularity}</h3>
+              </div>
               <div className=" ">
                 <h2 className=" font-bold text-lg">Status</h2>
                 <h3 className=" font-normal text-slate-300">{data?.status}</h3>
-              </div>
-              <div className=" ml-[7.5rem]">
-                <h2 className=" font-bold text-lg">Popularity</h2>
-                <h3 className=" font-normal text-slate-300">{data?.popularity}</h3>
               </div>
             </span>
             <span className=" flex mt-4 mx-4">
@@ -140,7 +139,7 @@ function MovieComponent() {
                 <h2 className=" font-bold text-lg">Ratings</h2>
                 <h3 className=" font-normal text-slate-300">{data?.vote_count}</h3>
               </div>
-              <div className=" ml-[7.5rem]">
+              <div className=" ml-32">
                 <h2 className=" font-bold text-lg">Average Rating</h2>
                 <h3 className=" font-normal text-slate-300">{data?.vote_average}</h3>
               </div>
@@ -150,7 +149,7 @@ function MovieComponent() {
                 <h2 className=" font-bold text-lg">Origin</h2>
                 <h3 className=" font-normal text-slate-300">{data?.production_companies[0].origin_country}</h3>
               </div>
-              <div className=" ml-[8.5rem]">
+              <div className=" ml-36">
                 <h2 className=" font-bold text-lg">Production Company</h2>
                 <h3 className=" font-normal text-slate-300">
                 {data?.production_companies[0].name}

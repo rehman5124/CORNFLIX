@@ -5,6 +5,8 @@ import { FaCalendar } from "react-icons/fa";
 import StarIcon from "@mui/icons-material/Star";
 import { useQuery, useIsFetching, useMutation } from "@tanstack/react-query";
 import DropDown from "@/components/DropDown";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { APIKEY } from "@/app/constants";
 
 function TvComponent() {
@@ -29,7 +31,6 @@ function TvComponent() {
         body: `{"value":${Rvalue}}`
       })
     });
-    console.log(mutation)
 
     const {data} = useQuery({
         queryKey: ['Tvdetailsss'],
@@ -41,6 +42,10 @@ function TvComponent() {
         }).then((response) => response.json())
     })
     // console.log(data)
+    const handleClick = (event) => {
+      mutation.mutate();
+      toast("Rating Successful!");
+    }
 
     if(isFetching) {
         return <div className=" w-full flex justify-center">
@@ -110,12 +115,12 @@ function TvComponent() {
             </span>
             <span className=" flex mt-4 mx-4">
               <div className=" ">
-                <h2 className=" font-bold text-lg">Status</h2>
-                <h3 className=" font-normal text-slate-300">{data?.status}</h3>
-              </div>
-              <div className=" ml-[7.5rem]">
                 <h2 className=" font-bold text-lg">Popularity</h2>
                 <h3 className=" font-normal text-slate-300">{data?.popularity}</h3>
+              </div>
+              <div className=" ml-[6.5rem]">
+                <h2 className=" font-bold text-lg">Status</h2>
+                <h3 className=" font-normal text-slate-300">{data?.status}</h3>
               </div>
             </span>
             <span className=" flex mt-4 mx-4">
@@ -145,7 +150,7 @@ function TvComponent() {
             </div>
             <div className=" flex gap-2 mt-4 mx-4">
               <textarea onChange={handleChange} maxLength={1} className=" border-[1px] border-black text-black w-16 h-8 rounded-md px-2"></textarea>
-              <button onClick={()=> {mutation.mutate()}} className=" text-white rounded-md px-1 bg-[#e50914]">
+              <button onClick={handleClick} className=" text-white rounded-md px-1 bg-[#e50914]">
                 {" "}
                 Rate <StarIcon />
               </button>
@@ -153,6 +158,7 @@ function TvComponent() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
