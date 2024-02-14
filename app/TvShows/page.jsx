@@ -19,7 +19,7 @@ function TvShows() {
   });
 
   return (
-    <div>
+    <div className=" mt-28">
       {localStorage.getItem("guest_session_id") ? (
         <div>
         <h1 className=" text-4xl font-bold ml-20 mt-8 mb-4">

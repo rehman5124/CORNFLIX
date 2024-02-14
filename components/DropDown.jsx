@@ -1,12 +1,13 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 
-function DropDown() {
+function DropDown({data}) {
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClick = () => {
-    document.getElementById("container-list").classList.contains("hidden")
-      ? document.getElementById("container-list").classList.remove("hidden")
-      : document.getElementById("container-list").classList.add("hidden");
+    setIsOpen(!isOpen);
   };
 
   const handleList = () => {
@@ -25,24 +26,22 @@ function DropDown() {
         Seasons
         <FaCaretDown className=" mt-[6px] ml-1" />
       </h3>
-      <div id="container-list" className=" ml-1 mt-2 bg-[#e50914] w-fit p-2 h-16 overflow-y-auto hidden ">
-        <ul className="">
-          <li onClick={handleList} className=" ">
-            Season 1{" "}
-            <span className=" float-right">
-              <FaCaretDown className=" mt-[4px] ml-1" />
-            </span>
-            <ul id="sub-list" className=" hidden"><li className=" ml-2">ep.128</li></ul>
-          </li>
-          <li onClick={handleList} className=" ">
-            Season 2{" "}
-            <span className=" float-right">
-              <FaCaretDown className=" mt-[4px] ml-1" />
-            </span>
-            <ul id="sub-list2" className=" hidden"><li className=" ml-2">ep.128</li></ul>
-          </li>
-        </ul>
-      </div>
+      {isOpen ? (
+        <div className=" bg-[#e50914] w-fit px-2 rounded-md mt-2 h-[60px] overflow-scroll overflow-x-hidden hide-scrollbar">
+          {data?.seasons.map((item) => {
+            return (
+              <list>
+                <ul className=" ">
+                  <li className=" text-lg font-semibold px-2">{item.name}
+                  <ul>
+                    <li className=" px-3 text-sm font-normal">{item.episode_count} EPS.</li>
+                  </ul></li>
+                </ul>
+              </list>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }

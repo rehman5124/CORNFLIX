@@ -8,6 +8,7 @@ import DropDown from "@/components/DropDown";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { APIKEY } from "@/app/constants";
+import Error from "next/error";
 
 function TvComponent() {
 
@@ -41,15 +42,16 @@ function TvComponent() {
             }
         }).then((response) => response.json())
     })
-    // console.log(data)
+    console.log(data)
+
     const handleClick = (event) => {
       mutation.mutate();
-      toast("Rating Successful!");
+      mutation.isSuccess ? toast("Rating Successful!") : toast("Rating Failure!")
     }
 
     if(isFetching) {
         return <div className=" w-full flex justify-center">
-            <h1>Loading...</h1>
+            <h1 className=" text-2xl font-semibold mt-24">Loading...</h1>
         </div>
     }
 
@@ -57,8 +59,18 @@ function TvComponent() {
     // var Hours = Math.floor(time /60)
     // var minutes = time % 60
 
+    // if (Error) {
+    //   return (
+    //     <div className=" w-full flex justify-center">
+    //       <h1 className=" text-2xl font-semibold mt-24">
+    //         Movie details are not fully updated! please choose another Show.
+    //       </h1>
+    //     </div>
+    //   );
+    // }
+
   return (
-    <div className=" my-6 mx-16 border-[1px] border-white pr-4">
+    <div className=" mb-6 mt-20 mx-16 border-[1px] border-white pr-4">
       <div className=" flex">
         <img
           src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
@@ -100,7 +112,7 @@ function TvComponent() {
             <div className=" ml-4 w-full">
               <h2 className=" font-bold text-lg">Overview</h2>
               <h3 className=" font-normal text-slate-300">
-                {data?.overview}
+                {data?.overview.slice(0, 300)+"..."}
               </h3>
             </div>
             <span className=" flex mt-4 mx-4">
@@ -146,7 +158,7 @@ function TvComponent() {
               </div>
             </span>
             <div className=" mt-4 mx-4">
-              <DropDown />
+              <DropDown data = {data}/>
             </div>
             <div className=" flex gap-2 mt-4 mx-4">
               <textarea onChange={handleChange} maxLength={1} className=" border-[1px] border-black text-black w-16 h-8 rounded-md px-2"></textarea>

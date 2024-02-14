@@ -7,8 +7,9 @@ function HeroSection() {
   
     const isFetching = useIsFetching();
     const URL = 'https://api.themoviedb.org/3/trending/all/day'
+    const detailedURL = 'https://api.themoviedb.org/3/movie/movie_id?language=en-US'
 
-    const {data, isError} = useQuery({
+    const { data } = useQuery({
         queryKey: ['trending'],
         queryFn: (query) => fetch(URL, {
             headers: {
@@ -19,7 +20,20 @@ function HeroSection() {
             return res.json()
         })
     })
-    console.log(data)
+
+    const {data: heroDetails } = useQuery({
+        queryKey: ['trendingDetails'],
+        queryFn: (query) => fetch(`https://api.themoviedb.org/3/movie/${data?.results[0].id}?language=en-US`, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Y2QxODVjNTIxN2ExNjhlYTcwNjY4NmQ1ZDcxMTEyNyIsInN1YiI6IjY1YWU1YmQ0YmQ1ODhiMDBlYmFlMTEwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lXT_y9EOO7LqJILcfz0Tp3beHgwy5jPyzUDbTYjkdIE',
+                accept: 'application/json'
+            }
+        }).then((res) => {
+            return res.json()
+        }),
+        enabled: !!data
+    })
+    console.log(heroDetails)
 
     if (isFetching) {
         return (
@@ -30,70 +44,26 @@ function HeroSection() {
     }
 
   return (
-    <Link href={`/${data?.results[0].release_date ? "Movies" : "TvShows"}/${data?.results[0].id}`}>
-      <div className=" mx-20 mt-8 flex">
+    <Link
+      href={`/${data?.results[0].release_date ? "Movies" : "TvShows"}/${
+        data?.results[0].id
+      }`}
+    >
+      <div className=" grid place-items-center">
         <img
           src={`https://image.tmdb.org/t/p/original/${data?.results[0].poster_path}`}
           alt="hero image"
-          className=" h-[80vh] w-[30vw] pr-6 border-r-[1px] border-neutral-400"
+          className=" h-[100vh] w-full object-cover"
         />
-        <div>
-          <h1 className=" text-4xl font-bold ml-32 text-[#e50914]">
-            {data?.results[0].original_title
-              ? data?.results[0].original_title
-              : data?.results[0].original_name}
-          </h1>
-          <div className=" flex flex-col ml-2 mt-8">
-            <h2 className=" text-base font-bold">Movie Title:</h2>
-            <h3 className=" text-sm text-neutral-300">
-              {data?.results[0].title
-                ? data?.results[0].title
-                : data?.results[0].name}
-            </h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Release date:</h2>
-            <h3 className=" text-sm text-neutral-300">
-              {data?.results[0].release_date
-                ? data?.results[0].release_date
-                : data?.results[0].first_air_date}
-            </h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Genre:</h2>
-            <h3 className=" text-sm text-neutral-300">Superhero zction</h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Language:</h2>
-            <h3 className=" text-sm text-neutral-300">
-              {data?.results[0].original_language}
-            </h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Overview:</h2>
-            <h3 className=" text-sm text-neutral-300">
-              {data?.results[0].overview.slice(0, 200)}
-            </h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Seasons:</h2>
-            <h3 className=" text-sm text-neutral-300">Scrollbar</h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Rating:</h2>
-            <h3 className=" text-sm text-neutral-300">
-              {data?.results[0].vote_average}
-            </h3>
-          </div>
-          <div className=" flex flex-col ml-2 mt-5">
-            <h2 className=" text-base font-bold">Rate:</h2>
-            <span className=" flex">
-              <textarea className=" text-sm text-black h-4 w-12 pl-1"></textarea>
-              <button className=" text-sm bg-[#e50914] px-1 rounded-sm ml-2">
-                Rate
-              </button>
-            </span>
-          </div>
+        <div className=" absolute left-10 mt-20 w-[265px] bottom-[10vh]">
+          {/* <img
+            src={`https://image.tmdb.org/t/p/original/${heroDetails?.production_companies[2].logo_path}`}
+            alt="logo"
+            className=" w-60 h-20"
+          /> */}
+          <h1 className=" text-5xl font-bold text-center text-[#e50914]">{heroDetails?.title}</h1>
+          {/* <h1 className=" text-2xl font-semibold mt-4 text-center shadow-2xl  text-[#e50914]">{heroDetails?.overview.slice(0, 50)}...</h1> */}
+          <button className=" bg-[#e50914] px-4 py-2 rounded-md mt-4 w-full">More Info</button>
         </div>
       </div>
     </Link>

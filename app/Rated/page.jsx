@@ -45,7 +45,7 @@ function Rated() {
   }
 
   return (
-    <div className=" w-[100%] overflow-hidden">
+    <div className=" w-[100%] overflow-hidden mt-20">
       {localStorage.getItem("guest_session_id") ? (
         <div>
           {ratedMovies?.results.length === 0 ? (

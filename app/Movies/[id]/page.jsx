@@ -44,7 +44,7 @@ function MovieComponent() {
     console.log(data)
     const handleClick = () => {
       mutation.mutate();
-      toast("Rating Successful!")
+      mutation.isSuccess ? toast("Rating Successful!") : toast("Rating Failure!")
 
     }
 
@@ -59,7 +59,7 @@ function MovieComponent() {
     var minutes = time % 60
 
   return (
-    <div className=" my-6 mx-16 border-[1px] border-white pr-4">
+    <div className="mb-6 mt-20 mx-16 border-[1px] border-white pr-4">
       <div className=" flex">
         <img
           src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}

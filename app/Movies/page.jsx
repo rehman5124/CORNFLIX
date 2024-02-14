@@ -19,7 +19,7 @@ function Movies() {
   });
 
   return (
-    <div>
+    <div className=" mt-28">
       {localStorage.getItem("guest_session_id") ? (
         <div className=" mr-8">
           <h1 className=" text-4xl font-bold ml-20 mt-8 mb-4">
