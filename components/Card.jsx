@@ -19,7 +19,7 @@ export default function MediaCard({
 }) {
  
   return (
-    <div className=" mx-20 my-6">
+    <div className=" lg:mx-20 my-6">
       <Card
         sx={{ width: 400, borderRadius: 3, backgroundColor: " rgb(50 50 50)" }}
       >

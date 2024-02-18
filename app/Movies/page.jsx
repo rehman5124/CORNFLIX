@@ -19,13 +19,13 @@ function Movies() {
   });
 
   return (
-    <div className=" mt-28">
+    <div className=" mt-28 w-full">
       {localStorage.getItem("guest_session_id") ? (
-        <div className=" mr-8">
-          <h1 className=" text-4xl font-bold ml-20 mt-8 mb-4">
+        <div className=" w-full lg:mr-8">
+          <h1 className=" text-4xl font-bold grid justify-center mt-8 mb-8">
             All time BlockBusters
           </h1>
-          <div className=" grid grid-cols-3">
+          <div className=" grid w-full place-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {data?.results.slice(5, 25).map((item) => {
               return (
                 <MediaCard

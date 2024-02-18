@@ -55,7 +55,7 @@ function HeroSection() {
           alt="hero image"
           className=" h-[100vh] w-full object-cover"
         />
-        <div className=" absolute left-10 mt-20 w-[265px] bottom-[10vh]">
+        <div className=" absolute hidden sm:block md:left-10 mt-20 w-[265px] bottom-[10vh]">
           {/* <img
             src={`https://image.tmdb.org/t/p/original/${heroDetails?.production_companies[2].logo_path}`}
             alt="logo"

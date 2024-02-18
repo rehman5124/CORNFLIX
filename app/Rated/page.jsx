@@ -58,7 +58,7 @@ function Rated() {
               <h1 className=" text-4xl font-bold ml-20 mt-8 mb-4">
                 Rated Movies
               </h1>
-              <div className=" flex w-[100%] overflow-x-scroll pr-[17px] box-content hide-scrollbar">
+              <div className=" flex w-[100%] gap-6 ml-6 lg:gap-0 lg:ml-0 overflow-x-scroll pr-[17px] box-content hide-scrollbar">
                 {ratedMovies?.results.slice(0, 10).map((item) => {
                   return (
                     <MediaCard
@@ -88,7 +88,7 @@ function Rated() {
               <h1 className=" text-4xl font-bold ml-20 mt-8 mb-4">
                 Rated Tv Shows
               </h1>
-              <div className=" flex w-[100%] overflow-x-scroll pr-[17px] box-content hide-scrollbar">
+              <div className=" flex w-[100%] gap-6 ml-6 lg:gap-0 lg:ml-0 overflow-x-scroll pr-[17px] box-content hide-scrollbar">
                 {ratedTvShows?.results.slice(0, 10).map((item) => {
                   return (
                     <MediaCard

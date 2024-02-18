@@ -8,7 +8,7 @@ import MediaCard from "./Card";
 
 function CardCarousal({title, data}) {
 
-  const settings = {
+  var settings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -21,10 +21,39 @@ function CardCarousal({title, data}) {
     swipeToSlide: true,
     centerMode: true,
     centerPadding: 25 ,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 2.5,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 1.5,
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+      
+    ]
+    
   };
 
   return (
-    <div className=" flex flex-col">
+    <div className=" flex flex-col sm:flex-col md:flex-col xl:flex-col slider-container">
       <h1 className=" text-4xl font-semibold mb-8 ml-20 mt-14">{title}</h1>
       <Slider {...settings} className=" ">
         {data?.results.slice(0, 10).map((item)=> {
