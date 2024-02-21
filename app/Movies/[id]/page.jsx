@@ -50,7 +50,7 @@ function MovieComponent() {
 
     if(isFetching) {
         return <div className=" w-full flex justify-center">
-            <h1>Loading...</h1>
+            <h1 className=" font-semibold mt-20">Loading...</h1>
         </div>
     }
 
@@ -60,11 +60,11 @@ function MovieComponent() {
 
   return (
     <div className="mb-6 mt-20 mx-16 border-[1px] border-white pr-4">
-      <div className=" flex">
+      <div className=" flex flex-col md:flex-row">
         <img
           src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
           alt="detailed image"
-          className=" p-6 size-[33%]"
+          className=" p-6 w-full md:w-[33%] h-[70vh] object-contain size-[33%] md:h-[100vh] md:object-fill"
         />
 
         <div className=" w-full">
@@ -72,19 +72,19 @@ function MovieComponent() {
             <h1 className=" text-4xl font-bold text-[#e50914] mt-4 flex justify-center">
               {data?.original_title}
             </h1>
-            <div className=" flex mt-2 justify-center">
-              <span className=" flex">
+            <div className=" flex mt-2 w-full justify-center flex-col lg:flex-row">
+              <span className=" flex mx-auto lg:mx-0">
                 <FaCalendar />{" "}
                 <h3 className=" ml-1 relative bottom-[3px]">{data?.release_date}</h3>
               </span>
-              <span className=" flex">
+              <span className=" flex mx-auto lg:mx-0">
                 {" "}
                 <h1 className=" ml-2 relative bottom-[3px]">&#x2022;</h1>{" "}
                 <h3 className=" text-base font-normal ml-1 relative bottom-[2px]">
                   {data?.genres.slice(0,3).map((item) => {return item.name + ', '})}
                 </h3>
               </span>
-              <span className=" flex">
+              <span className=" flex mx-auto lg:mx-0">
                 {" "}
                 <h1 className=" ml-2 relative bottom-[3px]"> &#x2022; </h1>{" "}
                 <h3 className=" text-base font-normal ml-1 relative bottom-[2px]">

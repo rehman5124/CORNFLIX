@@ -61,7 +61,7 @@ function IndexData() {
 
   if(isError) {
     return <main className=" mx-auto">
-        <h1 className=" font-bold text-2xl">Error Occured</h1>
+        <h1 className=" font-bold text-2xl">Database under Construction</h1>
     </main>
   }
 

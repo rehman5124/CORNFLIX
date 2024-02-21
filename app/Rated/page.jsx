@@ -2,15 +2,15 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import CardCarousal from "@/components/CardCarousal";
 import MediaCard from "@/components/Card";
+import Error from "next/error";
 
 function Rated() {
 
   const url = `https://api.themoviedb.org/3/guest_session/${localStorage.getItem("guest_session_id")}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`;
   const Tvurl = `https://api.themoviedb.org/3/guest_session/${localStorage.getItem("guest_session_id")}/rated/tv?language=en-US&page=1&sort_by=created_at.asc`;
 
-  const {data: ratedMovies, isLoading} = useQuery({
+  const {data: ratedMovies, isLoading, isError} = useQuery({
     queryKey: ['getRatedMovies'],
     queryFn: (query) => fetch(url, {
       method: 'GET',
@@ -33,14 +33,20 @@ function Rated() {
   })
 
   if(isLoading) {
-    return <main className=" grid w-full justify-center">
-      <h1 className="">Loading...</h1>
+    return <main className=" grid w-full justify-center mt-20">
+      <h1 className=" text-2xl font-semibold">Loading...</h1>
     </main>
   }
 
-  if(ratedMovies?.results.length === 0 && ratedTvShows?.results.length === 0) {
+  // if(ErrorInfo) {
+  //   return <main className=" grid w-full justify-center mt-20">
+  //     <h1 className=" text-2xl font-semibold"> Empty Rating List</h1>
+  //   </main>
+  // }
+
+  if(ratedMovies?.results == undefined && ratedTvShows?.results == undefined) {
     return <main className=" grid w-full justify-center">
-      <h1 className=" uppercase text-2xl font-semibold my-12">You have not rated anything yet!</h1>
+      <h1 className=" uppercase text-2xl font-semibold mt-20">You have not rated anything yet!</h1>
     </main>
   }
 
@@ -48,7 +54,7 @@ function Rated() {
     <div className=" w-[100%] overflow-hidden mt-20">
       {localStorage.getItem("guest_session_id") ? (
         <div>
-          {ratedMovies?.results.length === 0 ? (
+          {ratedMovies?.results == undefined ? (
             <h1 className=" text-4xl font-bold w-full flex justify-center my-8">
               {" "}
               No Movie rated!{" "}
@@ -78,7 +84,7 @@ function Rated() {
             </div>
           )}
 
-          {ratedTvShows?.results.length === 0 ? (
+          {ratedTvShows?.results == undefined ? (
             <h1 className=" text-4xl font-bold w-full flex justify-center my-8">
               {" "}
               No TvShow rated!{" "}

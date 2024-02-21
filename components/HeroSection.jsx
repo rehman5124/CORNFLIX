@@ -37,7 +37,7 @@ function HeroSection() {
 
     if (isFetching) {
         return (
-            <main className=" grid justify-center">
+            <main className=" grid justify-center mt-20">
                 <h1 className=" font-bold text-2xl">Loading...</h1>
             </main>
         )
