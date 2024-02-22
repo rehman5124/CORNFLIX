@@ -4,6 +4,7 @@ import { useQuery, useIsFetching } from "@tanstack/react-query";
 import CardCarousal from "./CardCarousal";
 import { redirect } from "next/navigation";
 
+
 function IndexData() {
 
   const isFetching = useIsFetching();
