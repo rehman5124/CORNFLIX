@@ -4,6 +4,10 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { useQuery, useIsFetching } from "@tanstack/react-query";
 
+// export const metadata = {
+//   title: "Home | CORNFLIX"
+// }
+
 function Movies() {
 
   const PopMovieURL = 'https://api.themoviedb.org/3/movie/top_rated';
